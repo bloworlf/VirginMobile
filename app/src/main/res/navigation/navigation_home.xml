@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation_home.xml"
+    app:startDestination="@id/menu_people">
+
+    <fragment
+        android:id="@+id/menu_people"
+        android:name="com.example.virginmoney.fragments.FragmentPeople"
+        android:label="People" >
+        <action
+            android:id="@+id/people_to_details"
+            app:destination="@id/fragmentPeopleDetails" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/menu_rooms"
+        android:name="com.example.virginmoney.fragments.FragmentRoom"
+        android:label="Rooms" />
+
+    <fragment
+        android:id="@+id/menu_profile"
+        android:name="com.example.virginmoney.fragments.FragmentProfile"
+        android:label="Profile" />
+    <fragment
+        android:id="@+id/fragmentPeopleDetails"
+        android:name="com.example.virginmoney.fragments.FragmentPeopleDetails"
+        android:label="FragmentPeopleDetails" />
+</navigation>

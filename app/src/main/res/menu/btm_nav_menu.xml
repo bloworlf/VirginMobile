@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_people"
+        android:icon="@drawable/people_selector"
+        android:title="People"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/menu_rooms"
+        android:icon="@drawable/rooms_selector"
+        android:title="Rooms"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/menu_profile"
+        android:icon="@drawable/profile"
+        android:title="Profile"
+        app:showAsAction="always" />
+
+</menu>
