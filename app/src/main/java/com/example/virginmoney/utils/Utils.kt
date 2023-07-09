@@ -11,12 +11,14 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
+import android.os.Build
 import android.text.TextUtils
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.browser.customtabs.CustomTabsService
 import androidx.core.graphics.ColorUtils
@@ -73,12 +75,14 @@ object Utils {
         return ColorUtils.calculateLuminance(color) < 0.5
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     fun setLightStatusBar(activity: Activity) {
         var flags = activity.window.decorView.systemUiVisibility
         flags = flags or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         activity.window.decorView.systemUiVisibility = flags
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     fun clearLightStatusBar(activity: Activity) {
         var flags = activity.window.decorView.systemUiVisibility
         flags = flags and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
@@ -115,7 +119,7 @@ object Utils {
                 browserIntent,
                 PackageManager.MATCH_DEFAULT_ONLY
             )
-            if (resolveInfo != null && resolveInfo.activityInfo.packageName.isNotEmpty()) {
+            if ((resolveInfo != null) && resolveInfo.activityInfo.packageName.isNotEmpty()) {
                 customTabsIntent.intent.setPackage(resolveInfo.activityInfo.packageName)
             }
             url?.let {
@@ -412,5 +416,6 @@ object Utils {
         "wheat" to "F5DEB3",
         "whitesmoke" to "F5F5F5",
         "yellowgreen" to "9ACD32",
+        "grey" to "808080",
     )
 }

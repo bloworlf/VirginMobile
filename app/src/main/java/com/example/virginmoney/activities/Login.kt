@@ -13,6 +13,7 @@ import androidx.appcompat.widget.AppCompatButton
 import com.example.virginmoney.R
 import com.example.virginmoney.base.BaseActivity
 import com.example.virginmoney.databinding.ActivityLoginBinding
+import com.example.virginmoney.dialogs.CustomDialog
 import com.example.virginmoney.utils.Utils.isValidEmail
 import com.example.virginmoney.utils.Utils.shake
 import com.facebook.AccessToken
@@ -32,6 +33,8 @@ import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.UserProfileChangeRequest
+import java.util.regex.Pattern
+
 
 class Login : BaseActivity() {
 
@@ -185,6 +188,13 @@ class Login : BaseActivity() {
 
     private fun setupRegisterForm() {
         // TODO: check for empty fields... complete registration form
+        val layoutFirstLayout: TextInputLayout = loginForm.findViewById(R.id.layoutRegFirstName)
+        val layoutLastLayout: TextInputLayout = loginForm.findViewById(R.id.layoutRegLastName)
+        val layoutEmailLayout: TextInputLayout = loginForm.findViewById(R.id.layoutRegEmail)
+        val layoutPasswordLayout: TextInputLayout = loginForm.findViewById(R.id.layoutRegPassword)
+        val layoutPasswordConfirmLayout: TextInputLayout =
+            loginForm.findViewById(R.id.layoutRegPasswordConfirm)
+
         val edFirst: TextInputEditText = loginForm.findViewById(R.id.edRegFirstName)
         val edLast: TextInputEditText = loginForm.findViewById(R.id.edRegLastName)
         val edEmail: TextInputEditText = loginForm.findViewById(R.id.edRegEmail)
@@ -192,29 +202,154 @@ class Login : BaseActivity() {
         val edPasswordConfirm: TextInputEditText =
             loginForm.findViewById(R.id.edRegPasswordConfirm)
         val btnReg: AppCompatButton = loginForm.findViewById(R.id.register)
+
+        val letter: Pattern = Pattern.compile("[a-zA-Z]")
+        val digit: Pattern = Pattern.compile("[0-9]")
+        val special: Pattern = Pattern.compile("[!@#$%&*()_+=|<>?{}\\[\\]~-]")
+
+        edEmail.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if (layoutEmailLayout.error != null) {
+                    layoutEmailLayout.error = null
+                }
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                if (p0.toString().isNotEmpty() && !p0.toString().isValidEmail()) {
+                    layoutEmailLayout.error = "Invalid email"
+                }
+            }
+        })
+
+        edPassword.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                val hasLetter = letter.matcher(p0.toString())
+                val hasDigit = digit.matcher(p0.toString())
+                val hasSpecial = special.matcher(p0.toString())
+
+                if (p0.isNullOrEmpty()) {
+                    layoutPasswordLayout.error = "You must provide a password."
+                } else if (p0.length < 8 || !hasLetter.find() || !hasDigit.find() || !hasSpecial.find()) {
+                    layoutPasswordLayout.error =
+                        "Password must be 8 chars long, contain uppercase/lowercase, number and special char"
+                } else {
+                    layoutPasswordLayout.error = null
+                }
+            }
+        })
+
+        edPasswordConfirm.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if (p0.isNullOrEmpty() && edPassword.text.toString().trim().isNotEmpty()) {
+                    layoutPasswordConfirmLayout.error = "Password mismatch!"
+                } else if (edPassword.text.toString().trim() != edPasswordConfirm.text.toString()
+                        .trim()
+                ) {
+                    layoutPasswordConfirmLayout.error = "Password mismatch!"
+                } else {
+                    layoutPasswordConfirmLayout.error = null
+                }
+
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+            }
+        })
+
         btnReg.setOnClickListener {
+            var valid = true
+
+            layoutFirstLayout.error = null
+            layoutLastLayout.error = null
+            layoutEmailLayout.error = null
+            layoutPasswordLayout.error = null
+            layoutPasswordConfirmLayout.error = null
+
+            val firstName: String = edFirst.text.toString().trim()
+            val lastName: String = edLast.text.toString().trim()
             val email: String = edEmail.text.toString().trim()
             val password: String = edPassword.text.toString().trim()
+            val passwordConfirm: String = edPasswordConfirm.text.toString().trim()
 
-            firebaseCreateUserWithEmailPassword(email, password)
+            if (firstName.isEmpty()) {
+                layoutFirstLayout.error = "This field is required"
+                valid = false
+            } else if (!firstName.matches(Regex("[a-zA-z\\-]+"))) {
+                layoutFirstLayout.error = "This first name has wrong character"
+            }
+            if (lastName.isEmpty()) {
+                layoutLastLayout.error = "This field is required"
+                valid = false
+            } else if (!lastName.matches(Regex("[a-zA-z\\-]+"))) {
+                layoutLastLayout.error = "This first name has wrong character"
+            }
+            if (email.isEmpty()) {
+                layoutEmailLayout.error = "This field is required"
+                valid = false
+            } else if (!email.isValidEmail()) {
+                layoutEmailLayout.error = "Verify your email address"
+            }
+            if (password.isEmpty()) {
+                layoutPasswordLayout.error = "This field is required"
+                valid = false
+            }
+            if (passwordConfirm.isEmpty()) {
+                layoutPasswordConfirmLayout.error = "This field is required"
+                valid = false
+            }
+
+            if (password != passwordConfirm) {
+                valid = false
+            }
+
+            if (!valid) {
+                loginForm.shake()
+                return@setOnClickListener
+            }
+            firebaseCreateUserWithEmailPassword(
+                email = email,
+                password = password,
+                displayName = "$firstName $lastName"
+            )
         }
     }
 
-    private fun firebaseCreateUserWithEmailPassword(email: String, password: String) {
+    private fun firebaseCreateUserWithEmailPassword(
+        email: String,
+        password: String,
+        displayName: String
+    ) {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnSuccessListener { it ->
                 val profileUpdates = UserProfileChangeRequest.Builder()
-                    .setDisplayName("")
+                    .setDisplayName(displayName)
                     .setPhotoUri(Uri.parse(""))
                     .build()
                 //update user tou provide additional info
                 it.user?.updateProfile(profileUpdates)
-                    ?.addOnCompleteListener {
-                        //no need success
-                        goToHomeActivity()
+                    ?.addOnCompleteListener { _ ->
+                        //user needs to receive email verification
+                        it.user?.sendEmailVerification()
+                        CustomDialog(this@Login, false)
+                            .setTitle("Email Verification")
+                            .setMessage("You will shortly receive an email to activate your account.")
+                            .setPositive("Understood") {}
+                            .show()
+                        FirebaseAuth.getInstance().signOut()
+//                        goToHomeActivity()
                     }
-//                    ?.addOnSuccessListener { }
-//                    ?.addOnFailureListener { }
             }
             .addOnFailureListener { }
     }
@@ -222,7 +357,7 @@ class Login : BaseActivity() {
     private fun facebookLogin() {
         callbackManager = CallbackManager.Factory.create()
 
-        fLogin.setReadPermissions("email", "public_profile")
+//        fLogin.setReadPermissions("email", "public_profile")
         fLogin.registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
             override fun onSuccess(result: LoginResult) {
                 Log.d(TAG, "facebook:onSuccess:$result")
@@ -243,8 +378,23 @@ class Login : BaseActivity() {
     private fun firebaseCredentialsLogin(email: String, password: String) {
         auth.signInWithEmailAndPassword(email, password)
             .addOnSuccessListener { it ->
-                it.user
-                it.additionalUserInfo
+//                it.user
+//                it.additionalUserInfo
+                if (it.user == null) {
+                    return@addOnSuccessListener
+                }
+                if (!it.user!!.isEmailVerified) {
+                    CustomDialog(this@Login, false)
+                        .setTitle("Email Verification")
+                        .setMessage("You need to verify your email to get access to the app.")
+                        .setPositive("Understood") {}
+                        .setNeutral("Re-send email") { _ ->
+                            it.user!!.sendEmailVerification()
+                        }
+                        .show()
+                    FirebaseAuth.getInstance().signOut()
+                    return@addOnSuccessListener
+                }
 
                 val intent = Intent(this@Login, Home::class.java)
                 //set user maybe
@@ -257,6 +407,7 @@ class Login : BaseActivity() {
             }
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RC_SIGN_IN) {
@@ -280,15 +431,18 @@ class Login : BaseActivity() {
         auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-//                    val user = auth.currentUser
-//                    Toast.makeText(
-//                        this,
-//                        "Sign in successful: ${user?.displayName}",
-//                        Toast.LENGTH_SHORT
-//                    ).show()
 
-                    goToHomeActivity()
+                    if (FirebaseAuth.getInstance().currentUser!!.isEmailVerified) {
+                        goToHomeActivity()
+                    } else {
+                        FirebaseAuth.getInstance().currentUser!!.sendEmailVerification()
+                        CustomDialog(this@Login, false)
+                            .setTitle("Email Verification")
+                            .setMessage("You will shortly receive an email to activate your account.")
+                            .setPositive("Understood") {}
+                            .show()
+                        FirebaseAuth.getInstance().signOut()
+                    }
                 } else {
                     // If sign in fails, display a message to the user.
                     Toast.makeText(
@@ -311,17 +465,21 @@ class Login : BaseActivity() {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithCredential:success")
-                    val user = auth.currentUser
+//                    val user = auth.currentUser
 //                    updateUI(user)
+                    goToHomeActivity()
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
                     Toast.makeText(
-                        baseContext, "Authentication failed.",
+                        this@Login, "Authentication failed.",
                         Toast.LENGTH_SHORT
                     ).show()
 //                    updateUI(null)
                 }
+            }
+            .addOnFailureListener {
+                it.printStackTrace()
             }
     }
 

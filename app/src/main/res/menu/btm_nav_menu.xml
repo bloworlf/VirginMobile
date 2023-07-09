@@ -17,6 +17,7 @@
         android:id="@+id/menu_profile"
         android:icon="@drawable/profile"
         android:title="Profile"
+        android:contentDescription="Your profile"
         app:showAsAction="always" />
 
 </menu>

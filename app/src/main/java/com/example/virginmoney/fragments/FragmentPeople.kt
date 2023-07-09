@@ -31,7 +31,7 @@ import java.util.ArrayList
 @AndroidEntryPoint
 class FragmentPeople : BaseFragment() {
 
-    lateinit var bind: FragmentPeopleBinding
+    private lateinit var bind: FragmentPeopleBinding
     private var searchView: SearchView? = null
     private val viewModel: PeopleViewModel by viewModels()
 
@@ -132,8 +132,14 @@ class FragmentPeople : BaseFragment() {
             recyclerView.layoutManager = manager
         }
 
+//        adapter = PeopleAdapter(requireContext(), arrayListOf(), findNavController())
+//        recyclerView.adapter = adapter
+//
+//        val emptyDataObserver = EmptyDataObserver(recyclerView, bind.emptyDataParent.root)
+//        adapter.registerAdapterDataObserver(emptyDataObserver)
+
         viewModel.liveData.observe(viewLifecycleOwner) {
-            populateRecyclerView(it)
+                populateRecyclerView(it)
         }
     }
 
@@ -147,10 +153,16 @@ class FragmentPeople : BaseFragment() {
 //        }
 //        adapter.list = list
 //        adapter.notifyItemRangeInserted(adapter.list.size - list.size, list.size)
-        adapter = PeopleAdapter(requireContext(), list, findNavController())
-        recyclerView.adapter = adapter
+//        if (!this::adapter.isInitialized) {
+            adapter = PeopleAdapter(requireContext(), list, findNavController())
+            recyclerView.adapter = adapter
 
-        val emptyDataObserver = EmptyDataObserver(recyclerView, bind.emptyDataParent.root)
-        adapter.registerAdapterDataObserver(emptyDataObserver)
+            val emptyDataObserver = EmptyDataObserver(recyclerView, bind.emptyDataParent.root)
+            adapter.registerAdapterDataObserver(emptyDataObserver)
+//        val oldSize = adapter.list.size
+//        adapter.list = list
+//        adapter.notifyItemRangeInserted(oldSize, list.size)
+//        println(adapter.list.size)
+//        }
     }
 }

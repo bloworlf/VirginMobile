@@ -1,32 +1,22 @@
 package com.example.virginmoney.fragments
 
-import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.DrawableCompat
-import androidx.core.view.ViewCompat
 import androidx.core.view.doOnPreDraw
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions
-import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.request.target.BitmapImageViewTarget
-import com.bumptech.glide.request.target.CustomViewTarget
-import com.bumptech.glide.request.transition.Transition
 import com.example.virginmoney.R
 import com.example.virginmoney.activities.Home
 import com.example.virginmoney.base.BaseFragment
-import com.example.virginmoney.databinding.FragmentPeopleBinding
 import com.example.virginmoney.databinding.FragmentPeopleDetailsBinding
 import com.example.virginmoney.models.people.PeopleModel
 import com.example.virginmoney.utils.Utils.clearLightStatusBar
@@ -34,6 +24,8 @@ import com.example.virginmoney.utils.Utils.isDark
 import com.example.virginmoney.utils.Utils.setLightStatusBar
 import com.google.gson.Gson
 import de.hdodenhof.circleimageview.CircleImageView
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class FragmentPeopleDetails : BaseFragment() {
 
@@ -42,8 +34,15 @@ class FragmentPeopleDetails : BaseFragment() {
     lateinit var people: PeopleModel
 
     lateinit var thumbnail: CircleImageView
-    lateinit var transitionName: String
+    private lateinit var transitionName: String
     var color: Int = 0
+
+    lateinit var jobTitle: TextView
+    lateinit var firstName: TextView
+    lateinit var lastName: TextView
+    lateinit var email: TextView
+    lateinit var favColor: TextView
+    lateinit var createdAt: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -130,6 +129,20 @@ class FragmentPeopleDetails : BaseFragment() {
         thumbnail.doOnPreDraw {
             startPostponedEnterTransition()
         }
+
+        jobTitle = bind.jobPosition
+        firstName = bind.firstName
+        lastName = bind.lastName
+        email = bind.email
+        favColor = bind.favColor
+        createdAt = bind.createdAt
+
+        jobTitle.text = people.jobtitle
+        firstName.text = people.firstName
+        lastName.text = people.lastName
+        email.text = people.email
+        favColor.text = people.favouriteColor
+        createdAt.text = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault()).parse(people.createdAt).toString()
     }
 
     override fun onDestroy() {

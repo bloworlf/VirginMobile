@@ -56,7 +56,6 @@ class PeopleAdapter(
                 println("Not found color ${people.favouriteColor}")
                 "000000"
             }
-        println(col)
         val color: Int = Color.parseColor("#$col")
 
         holder.container.colorTransition(color)
@@ -82,6 +81,8 @@ class PeopleAdapter(
             .placeholder(R.drawable.profile)
             .error(R.drawable.profile)
             .into(holder.thumbnail)
+
+        holder.thumbnail.contentDescription = "Profile picture of ${people.firstName} ${people.lastName}"
 
         holder.itemView.setOnClickListener {
             val action = FragmentPeopleDirections.peopleToDetails()

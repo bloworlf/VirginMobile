@@ -7,9 +7,9 @@ data class RoomModel(
     @SerializedName("createdAt")
     val createdAt: String?,
     @SerializedName("id")
-    val id: String?,
+    val id: Int,
     @SerializedName("isOccupied")
-    val isOccupied: Boolean?,
+    val isOccupied: Boolean,
     @SerializedName("maxOccupancy")
-    val maxOccupancy: Int?
+    val maxOccupancy: Int
 )
