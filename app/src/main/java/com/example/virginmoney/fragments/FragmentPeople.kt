@@ -38,6 +38,7 @@ class FragmentPeople : BaseFragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var manager: StaggeredGridLayoutManager
     private lateinit var adapter: PeopleAdapter
+    private var favEnabled: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +46,7 @@ class FragmentPeople : BaseFragment() {
         setHasOptionsMenu(true)
 
         viewModel.getPeople()
+        favEnabled = arguments?.getBoolean("favEnabled") ?: false
     }
 
     override fun onCreateView(
@@ -54,6 +56,12 @@ class FragmentPeople : BaseFragment() {
     ): View {
         bind = FragmentPeopleBinding.inflate(layoutInflater, container, false)
         return bind.root
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        outState.putBoolean("favEnabled", favEnabled)
     }
 
     @Deprecated("Deprecated in Java")
@@ -85,6 +93,21 @@ class FragmentPeople : BaseFragment() {
                 return false
             }
         })
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.favColor -> {
+                if (this@FragmentPeople::adapter.isInitialized) {
+//                    favEnabled = !favEnabled
+//                    if(favEnabled){
+//                        item.icon
+//                    }else{}
+                    adapter.toggleFav()
+                }
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
@@ -139,7 +162,7 @@ class FragmentPeople : BaseFragment() {
 //        adapter.registerAdapterDataObserver(emptyDataObserver)
 
         viewModel.liveData.observe(viewLifecycleOwner) {
-                populateRecyclerView(it)
+            populateRecyclerView(it)
         }
     }
 
@@ -154,11 +177,11 @@ class FragmentPeople : BaseFragment() {
 //        adapter.list = list
 //        adapter.notifyItemRangeInserted(adapter.list.size - list.size, list.size)
 //        if (!this::adapter.isInitialized) {
-            adapter = PeopleAdapter(requireContext(), list, findNavController())
-            recyclerView.adapter = adapter
+        adapter = PeopleAdapter(requireContext(), list, findNavController(), favEnabled)
+        recyclerView.adapter = adapter
 
-            val emptyDataObserver = EmptyDataObserver(recyclerView, bind.emptyDataParent.root)
-            adapter.registerAdapterDataObserver(emptyDataObserver)
+        val emptyDataObserver = EmptyDataObserver(recyclerView, bind.emptyDataParent.root)
+        adapter.registerAdapterDataObserver(emptyDataObserver)
 //        val oldSize = adapter.list.size
 //        adapter.list = list
 //        adapter.notifyItemRangeInserted(oldSize, list.size)

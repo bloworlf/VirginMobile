@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
-import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
@@ -26,11 +25,14 @@ import com.google.gson.Gson
 class PeopleAdapter(
     private val context: Context,
     var list: ArrayList<PeopleModel>,
-    var navController: NavController
+    var navController: NavController,
+    fav: Boolean
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>(), Filterable {
 
     var filteredList: MutableList<PeopleModel> = list
+
+    private var favEnabled: Boolean = fav
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater: LayoutInflater = LayoutInflater.from(context)
@@ -49,13 +51,17 @@ class PeopleAdapter(
 
         ViewCompat.setTransitionName(holder.thumbnail, transitionName)
 
-        val col: String =
+        val col: String = if (favEnabled) {
             if (colorMap.containsKey(people.favouriteColor?.lowercase()?.replace(" ", ""))) {
                 colorMap[people.favouriteColor?.lowercase()?.replace(" ", "")]!!
             } else {
                 println("Not found color ${people.favouriteColor}")
-                "000000"
+                "FFFFFF"
             }
+        } else {
+            "FFFFFF"
+        }
+
         val color: Int = Color.parseColor("#$col")
 
         holder.container.colorTransition(color)
@@ -71,6 +77,7 @@ class PeopleAdapter(
             holder.lastName.setTextColor(Color.BLACK)
             holder.email.setTextColor(Color.BLACK)
         }
+
         holder.jobTitle.text = people.jobtitle
         holder.firstName.text = people.firstName
         holder.lastName.text = people.lastName
@@ -82,7 +89,8 @@ class PeopleAdapter(
             .error(R.drawable.profile)
             .into(holder.thumbnail)
 
-        holder.thumbnail.contentDescription = "Profile picture of ${people.firstName} ${people.lastName}"
+        holder.thumbnail.contentDescription =
+            "Profile picture of ${people.firstName} ${people.lastName}"
 
         holder.itemView.setOnClickListener {
             val action = FragmentPeopleDirections.peopleToDetails()
@@ -127,5 +135,10 @@ class PeopleAdapter(
                 notifyDataSetChanged()
             }
         }
+    }
+
+    fun toggleFav() {
+        favEnabled = !favEnabled
+        notifyDataSetChanged()
     }
 }

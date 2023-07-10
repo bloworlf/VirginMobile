@@ -9,4 +9,10 @@
         android:title="Search"
         app:showAsAction="always" />
 
+    <item
+        android:id="@+id/favColor"
+        android:icon="@drawable/palette"
+        android:title="Toggle Fav Color"
+        app:showAsAction="always" />
+
 </menu>
