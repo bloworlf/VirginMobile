@@ -12,6 +12,8 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Build
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.text.TextUtils
 import android.view.View
 import android.view.animation.Animation
@@ -32,6 +34,7 @@ object Utils {
     fun View.shake() {
         val animShake: Animation = AnimationUtils.loadAnimation(this.context, R.anim.shake)
         this.startAnimation(animShake)
+        this.context.vibratePhone()
     }
 
     /**
@@ -108,6 +111,15 @@ object Utils {
             }
         }
         colorAnimation.start()
+    }
+
+    fun Context.vibratePhone() {
+        val vibrator = this.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        if (Build.VERSION.SDK_INT >= 26) {
+            vibrator.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE))
+        } else {
+            vibrator.vibrate(200)
+        }
     }
 
     fun openUrl(context: Context, url: String?, color: Int = Color.BLACK) {

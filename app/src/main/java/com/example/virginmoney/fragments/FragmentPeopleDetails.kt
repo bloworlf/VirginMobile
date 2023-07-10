@@ -25,6 +25,7 @@ import com.example.virginmoney.utils.Utils.setLightStatusBar
 import com.google.android.material.card.MaterialCardView
 import com.google.gson.Gson
 import de.hdodenhof.circleimageview.CircleImageView
+import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -148,10 +149,14 @@ class FragmentPeopleDetails : BaseFragment() {
         lastName.text = people.lastName
         email.text = people.email
         favColor.text = people.favouriteColor
-        createdAt.text = SimpleDateFormat(
-            "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
-            Locale.getDefault()
-        ).parse(people.createdAt).toString()
+        createdAt.text = try {
+            SimpleDateFormat(
+                "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
+                Locale.getDefault()
+            ).parse(people.createdAt).toString()
+        } catch (e: Exception) {
+            "-"
+        }
 
         dataLayout = bind.dataLayout
         dataTitle = bind.dataTitle

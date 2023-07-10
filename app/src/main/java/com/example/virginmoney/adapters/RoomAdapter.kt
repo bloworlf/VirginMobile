@@ -16,6 +16,7 @@ import com.example.virginmoney.models.room.RoomModel
 import com.example.virginmoney.utils.Utils.colorTransition
 import com.example.virginmoney.utils.Utils.shake
 import com.google.android.material.card.MaterialCardView
+import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -57,10 +58,14 @@ class RoomAdapter(
             )
             "Available"
         }
-        holder.createdAt.text = SimpleDateFormat(
-            "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
-            Locale.getDefault()
-        ).parse(room.createdAt).toString()
+        holder.createdAt.text = try {
+            SimpleDateFormat(
+                "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
+                Locale.getDefault()
+            ).parse(room.createdAt).toString()
+        } catch (e: Exception) {
+            "-"
+        }
 
         holder.itemView.setOnClickListener {
             if (room.isOccupied) {
