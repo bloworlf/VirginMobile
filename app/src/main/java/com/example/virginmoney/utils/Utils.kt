@@ -420,5 +420,6 @@ object Utils {
         "whitesmoke" to "F5F5F5",
         "yellowgreen" to "9ACD32",
         "grey" to "808080",
+        "mintgreen" to "98FF98",
     )
 }

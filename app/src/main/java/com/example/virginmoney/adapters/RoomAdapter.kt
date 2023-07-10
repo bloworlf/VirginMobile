@@ -1,16 +1,21 @@
 package com.example.virginmoney.adapters
 
 import android.content.Context
+import android.graphics.Color
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.virginmoney.R
 import com.example.virginmoney.holders.RoomHolder
 import com.example.virginmoney.models.room.RoomModel
+import com.example.virginmoney.utils.Utils.colorTransition
 import com.example.virginmoney.utils.Utils.shake
+import com.google.android.material.card.MaterialCardView
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -37,8 +42,19 @@ class RoomAdapter(
         holder.roomNumber.text = "Room #${room.id}"
         holder.maxOccupancy.text = "Max occupancy: ${room.maxOccupancy.toString()}"
         holder.isOccupied.text = if (room.isOccupied) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                (holder.itemView as MaterialCardView).elevation = -1F
+            }
+            holder.container.colorTransition(Color.parseColor("#eeeeee"))
             "Occupied"
         } else {
+            holder.container.colorTransition(
+                ResourcesCompat.getColor(
+                    context.resources,
+                    R.color.background,
+                    null
+                )
+            )
             "Available"
         }
         holder.createdAt.text = SimpleDateFormat(
