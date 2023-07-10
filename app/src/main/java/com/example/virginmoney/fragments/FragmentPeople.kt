@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -67,6 +68,12 @@ class FragmentPeople : BaseFragment() {
     @Deprecated("Deprecated in Java")
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.people_menu, menu)
+        if (favEnabled) {
+            menu.findItem(R.id.favColor).icon =
+                ResourcesCompat.getDrawable(resources, R.drawable.palette_filled, null)
+        } else {
+            menu.findItem(R.id.favColor).icon = ResourcesCompat.getDrawable(resources, R.drawable.palette, null)
+        }
         searchView = (menu.findItem(R.id.search).actionView as SearchView)
         searchView!!.maxWidth = Integer.MAX_VALUE
         searchView!!.queryHint = "Filter"
@@ -99,10 +106,13 @@ class FragmentPeople : BaseFragment() {
         when (item.itemId) {
             R.id.favColor -> {
                 if (this@FragmentPeople::adapter.isInitialized) {
-//                    favEnabled = !favEnabled
-//                    if(favEnabled){
-//                        item.icon
-//                    }else{}
+                    favEnabled = !favEnabled
+                    if (favEnabled) {
+                        item.icon =
+                            ResourcesCompat.getDrawable(resources, R.drawable.palette_filled, null)
+                    } else {
+                        item.icon = ResourcesCompat.getDrawable(resources, R.drawable.palette, null)
+                    }
                     adapter.toggleFav()
                 }
             }

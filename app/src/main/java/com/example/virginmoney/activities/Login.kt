@@ -345,7 +345,9 @@ class Login : BaseActivity() {
                         CustomDialog(this@Login, false)
                             .setTitle("Email Verification")
                             .setMessage("You will shortly receive an email to activate your account.")
-                            .setPositive("Understood") {}
+                            .setPositive("Understood") {
+                                toggleSignInSignUp()
+                            }
                             .show()
                         FirebaseAuth.getInstance().signOut()
 //                        goToHomeActivity()
