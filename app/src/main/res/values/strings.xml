@@ -8,5 +8,7 @@
     <string name="fb_login_protocol_scheme">fb1234</string>
     <string name="facebook_client_token">a5f1b7c13427ca5d6d5238afa52aba4a</string>
     <string name="create_account_text"><u>Create an account instead?</u></string>
+<!--    <string name="create_account_text"> <font color="#03A9F4"><u>Create an account instead?</u></font></string>-->
     <string name="login_email_password"><u>Sign in with email/password</u></string>
+<!--    <string name="login_email_password"> <font color="#03A9F4"><u>Sign in with email/password</u></font></string>-->
 </resources>

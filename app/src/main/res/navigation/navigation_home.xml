@@ -25,5 +25,5 @@
     <fragment
         android:id="@+id/fragmentPeopleDetails"
         android:name="com.example.virginmoney.fragments.FragmentPeopleDetails"
-        android:label="FragmentPeopleDetails" />
+        android:label="" />
 </navigation>

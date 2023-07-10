@@ -13,6 +13,7 @@ import com.example.virginmoney.activities.Splash
 import com.example.virginmoney.base.BaseFragment
 import com.example.virginmoney.databinding.FragmentProfileBinding
 import com.example.virginmoney.dialogs.CustomDialog
+import com.facebook.login.LoginManager
 import com.google.firebase.auth.FirebaseAuth
 
 class FragmentProfile : BaseFragment() {
@@ -47,6 +48,7 @@ class FragmentProfile : BaseFragment() {
                     .setMessage("Do you want to log out?")
                     .setPositive("Yes") {
                         FirebaseAuth.getInstance().signOut()
+                        LoginManager.getInstance().logOut()
 
                         requireActivity().startActivity(
                             Intent(

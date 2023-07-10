@@ -39,7 +39,8 @@ object Utils {
      * @return true is the string matches an email pattern, false if not and if string is empty
      */
     fun String.isValidEmail(): Boolean {
-        return !TextUtils.isEmpty(this) && android.util.Patterns.EMAIL_ADDRESS.matcher(this).matches()
+        return !TextUtils.isEmpty(this) && android.util.Patterns.EMAIL_ADDRESS.matcher(this)
+            .matches()
     }
 
     fun View.hideKeyboard() {
@@ -75,18 +76,20 @@ object Utils {
         return ColorUtils.calculateLuminance(color) < 0.5
     }
 
-    @RequiresApi(Build.VERSION_CODES.M)
     fun setLightStatusBar(activity: Activity) {
-        var flags = activity.window.decorView.systemUiVisibility
-        flags = flags or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-        activity.window.decorView.systemUiVisibility = flags
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            var flags = activity.window.decorView.systemUiVisibility
+            flags = flags or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            activity.window.decorView.systemUiVisibility = flags
+        }
     }
 
-    @RequiresApi(Build.VERSION_CODES.M)
     fun clearLightStatusBar(activity: Activity) {
-        var flags = activity.window.decorView.systemUiVisibility
-        flags = flags and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
-        activity.window.decorView.systemUiVisibility = flags
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            var flags = activity.window.decorView.systemUiVisibility
+            flags = flags and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
+            activity.window.decorView.systemUiVisibility = flags
+        }
     }
 
     fun View.colorTransition(endColor: Int, duration: Long = 250L) {

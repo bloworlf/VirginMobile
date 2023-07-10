@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.virginmoney.R
 import com.example.virginmoney.holders.RoomHolder
 import com.example.virginmoney.models.room.RoomModel
+import com.example.virginmoney.utils.Utils.shake
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -47,6 +48,7 @@ class RoomAdapter(
 
         holder.itemView.setOnClickListener {
             if (room.isOccupied) {
+                holder.itemView.shake()
                 Toast.makeText(context, "Sorry, this room is occupied", Toast.LENGTH_SHORT).show()
             } else {
                 //

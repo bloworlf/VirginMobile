@@ -22,6 +22,7 @@ import com.example.virginmoney.models.people.PeopleModel
 import com.example.virginmoney.utils.Utils.clearLightStatusBar
 import com.example.virginmoney.utils.Utils.isDark
 import com.example.virginmoney.utils.Utils.setLightStatusBar
+import com.google.android.material.card.MaterialCardView
 import com.google.gson.Gson
 import de.hdodenhof.circleimageview.CircleImageView
 import java.text.SimpleDateFormat
@@ -43,6 +44,11 @@ class FragmentPeopleDetails : BaseFragment() {
     lateinit var email: TextView
     lateinit var favColor: TextView
     lateinit var createdAt: TextView
+
+    lateinit var dataLayout: MaterialCardView
+    lateinit var dataTitle: TextView
+    lateinit var dataBody: TextView
+    lateinit var dataMeetingId: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -142,14 +148,30 @@ class FragmentPeopleDetails : BaseFragment() {
         lastName.text = people.lastName
         email.text = people.email
         favColor.text = people.favouriteColor
-        createdAt.text = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault()).parse(people.createdAt).toString()
+        createdAt.text = SimpleDateFormat(
+            "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
+            Locale.getDefault()
+        ).parse(people.createdAt).toString()
+
+        dataLayout = bind.dataLayout
+        dataTitle = bind.dataTitle
+        dataBody = bind.dataBody
+        dataMeetingId = bind.dataMeetingId
+
+        if (people.data != null) {
+            dataLayout.visibility = View.VISIBLE
+
+            dataTitle.text = people.data?.title
+            dataBody.text = people.data?.body
+            dataMeetingId.text = people.data?.meetingid
+        }
     }
 
     override fun onDestroy() {
         (activity as Home).titleColor(
             ResourcesCompat.getColor(
                 requireActivity().resources,
-                android.R.color.tab_indicator_text,
+                android.R.color.black,
                 null
             )
         )

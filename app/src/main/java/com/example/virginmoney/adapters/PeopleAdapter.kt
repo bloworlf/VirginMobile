@@ -111,10 +111,10 @@ class PeopleAdapter(
 //                    val results: ArrayList<PeopleModel> = arrayListOf()
                     val str: String = constraint.toString()
                     val resultList = list.filter {
-                        it.firstName?.contains(str) ?: false ||
-                                it.lastName?.contains(str) ?: false ||
-                                it.email?.contains(str) ?: false ||
-                                it.jobtitle?.contains(str) ?: false
+                        it.firstName?.lowercase()?.contains(str.lowercase()) ?: false ||
+                                it.lastName?.lowercase()?.contains(str.lowercase()) ?: false ||
+                                it.email?.lowercase()?.contains(str.lowercase()) ?: false ||
+                                it.jobtitle?.lowercase()?.contains(str.lowercase()) ?: false
                     }
                     filterResults.count = resultList.size
                     filterResults.values = resultList

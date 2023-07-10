@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:divider="@drawable/horizontal_line"
+    android:background="@color/background"
     android:orientation="vertical"
     android:padding="8dp"
     android:showDividers="middle">
@@ -49,6 +51,10 @@
             android:textSize="18sp" />
     </LinearLayout>
 
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="16dp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -70,6 +76,10 @@
             android:textAlignment="textEnd"
             android:textSize="18sp" />
     </LinearLayout>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="16dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -93,6 +103,10 @@
             android:textSize="18sp" />
     </LinearLayout>
 
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="16dp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -114,6 +128,10 @@
             android:textAlignment="textEnd"
             android:textSize="18sp" />
     </LinearLayout>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="16dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -137,4 +155,50 @@
             android:textSize="18sp" />
     </LinearLayout>
 
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="16dp" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/dataLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="16dp"
+        android:visibility="gone"
+        app:cardCornerRadius="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@drawable/horizontal_line"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:showDividers="middle">
+
+            <TextView
+                android:id="@+id/dataTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Title"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/dataBody"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Calling..." />
+
+            <TextView
+                android:id="@+id/dataMeetingId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Meeting ID" />
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 </LinearLayout>

@@ -12,4 +12,7 @@
     <color name="red">#fe0000</color>
     <color name="pink">#fc5557</color>
     <color name="blue">#2573FA</color>
+<!--    <color name="background">#d4cbe5</color>-->
+<!--    <color name="background">#f1faee</color>-->
+    <color name="background">#FFE9E9</color>
 </resources>
