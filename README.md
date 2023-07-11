@@ -31,10 +31,14 @@ The following **optional** features are implemented:
 ## Development Story
 
 The following story around how the app will be used should inform how you approach development/code structure:
+
 Virgin Money aim to use their branding in all of their internal services. They currently use a main brand color
 `#C40202` however they are in the early stages of a rebrand that may lead this to change in the near future.
+
 All employees will have access to the app and will expect the ability to quickly pull up and use the contact details of any of their colleagues. All details of the contact should be displayed in the app.Employees use Android devices across the full range, so your design must work across phones and tablets. Several of our employees use the accessibility features of Android, so your app **should** be accessibile.
+
 If the trial of the Directory app proves successful with the staff, Virgin Money may look to expand the app so that it will also allow users to access and administer more data, so ensure that the app can be easily expanded both in terms of codebase and UX.  The code from this app could be used in other applications so modularity is **important**. If the app expands in scope, it will be more rigorously tested by our QA resource and will therefore **need** to support a test environment as well as a live environment.
+
 Virgin Money cannot guarantee that the same developer(s) will always be working on this app throughout it's lifecycle, so it is important that other developers will be able to onboard themselves onto the codebase with ease.
 
 ## Screenshots
