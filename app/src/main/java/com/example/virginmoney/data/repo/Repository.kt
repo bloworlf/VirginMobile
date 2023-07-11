@@ -1,7 +1,7 @@
 package com.example.virginmoney.data.repo
 
-import com.example.virginmoney.models.people.PeopleModel
-import com.example.virginmoney.models.room.RoomModel
+import com.example.virginmoney.data.models.people.PeopleModel
+import com.example.virginmoney.data.models.room.RoomModel
 
 interface Repository {
 

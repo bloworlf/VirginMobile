@@ -1,8 +1,8 @@
 package com.example.virginmoney.data.repo
 
-import com.example.virginmoney.models.people.PeopleModel
-import com.example.virginmoney.network.PeopleCall
-import com.example.virginmoney.network.RoomsCall
+import com.example.virginmoney.data.models.people.PeopleModel
+import com.example.virginmoney.data.network.PeopleCall
+import com.example.virginmoney.data.network.RoomsCall
 import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Assert.*
