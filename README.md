@@ -59,9 +59,13 @@ Virgin Money cannot guarantee that the same developer(s) will always be working 
 
 ![Rooms Fragment](https://github.com/bloworlf/VirginMobile/blob/main/screens/rooms_fragment.png?raw=true)
 
+## Screen record
+
 ## Notes
 
--
+* [X] Error handling
+* [X] Null or empty text field checking
+* [X] Animations
 
 ## License
 
