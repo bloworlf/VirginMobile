@@ -47,6 +47,18 @@ Virgin Money cannot guarantee that the same developer(s) will always be working 
 
 ![Sign up Screen](https://github.com/bloworlf/VirginMobile/blob/main/screens/signup.png?raw=true)
 
+![People Fragment](https://github.com/bloworlf/VirginMobile/blob/main/screens/people_fragment.png?raw=true)
+
+![People Fragment Colored](https://github.com/bloworlf/VirginMobile/blob/main/screens/people_color.png?raw=true)
+
+![People Fragment Search](https://github.com/bloworlf/VirginMobile/blob/main/screens/search_people.png?raw=true)
+
+![People Fragment No Result](https://github.com/bloworlf/VirginMobile/blob/main/screens/people_no_result.png?raw=true)
+
+![People Details Fragment](https://github.com/bloworlf/VirginMobile/blob/main/screens/people_details.png?raw=true)
+
+![Rooms Fragment](https://github.com/bloworlf/VirginMobile/blob/main/screens/rooms_fragment.png?raw=true)
+
 ## Notes
 
 -
