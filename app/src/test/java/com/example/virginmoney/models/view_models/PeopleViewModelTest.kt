@@ -2,7 +2,8 @@ package com.example.virginmoney.models.view_models
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.virginmoney.data.repo.RepositoryImpl
-import com.example.virginmoney.models.people.PeopleModel
+import com.example.virginmoney.data.view_models.PeopleViewModel
+import com.example.virginmoney.data.models.people.PeopleModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher

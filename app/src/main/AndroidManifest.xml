@@ -34,9 +34,9 @@
             android:authorities="com.facebook.app.FacebookContentProvider717210286623656"
             android:exported="true" />
 
-        <activity android:name="com.example.virginmoney.activities.Login" />
+        <activity android:name="com.example.virginmoney.ui.activities.Login" />
         <activity
-            android:name="com.example.virginmoney.activities.Splash"
+            android:name="com.example.virginmoney.ui.activities.Splash"
             android:exported="true"
             android:theme="@style/SplashTheme">
             <intent-filter>
@@ -61,7 +61,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.virginmoney.activities.Home"
+            android:name="com.example.virginmoney.ui.activities.Home"
             android:configChanges="orientation|keyboardHidden|screenSize" />
     </application>
 

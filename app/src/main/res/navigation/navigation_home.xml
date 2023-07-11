@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/menu_people"
-        android:name="com.example.virginmoney.fragments.FragmentPeople"
+        android:name="com.example.virginmoney.ui.fragments.FragmentPeople"
         android:label="People" >
         <action
             android:id="@+id/people_to_details"
@@ -15,15 +15,15 @@
 
     <fragment
         android:id="@+id/menu_rooms"
-        android:name="com.example.virginmoney.fragments.FragmentRoom"
+        android:name="com.example.virginmoney.ui.fragments.FragmentRoom"
         android:label="Rooms" />
 
     <fragment
         android:id="@+id/menu_profile"
-        android:name="com.example.virginmoney.fragments.FragmentProfile"
+        android:name="com.example.virginmoney.ui.fragments.FragmentProfile"
         android:label="Profile" />
     <fragment
         android:id="@+id/fragmentPeopleDetails"
-        android:name="com.example.virginmoney.fragments.FragmentPeopleDetails"
+        android:name="com.example.virginmoney.ui.fragments.FragmentPeopleDetails"
         android:label="" />
 </navigation>

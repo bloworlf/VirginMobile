@@ -2,8 +2,8 @@ package com.example.virginmoney.di
 
 import com.example.virginmoney.data.repo.Repository
 import com.example.virginmoney.data.repo.RepositoryImpl
-import com.example.virginmoney.network.PeopleCall
-import com.example.virginmoney.network.RoomsCall
+import com.example.virginmoney.data.network.PeopleCall
+import com.example.virginmoney.data.network.RoomsCall
 import com.example.virginmoney.utils.Constants
 import dagger.Module
 import dagger.Provides

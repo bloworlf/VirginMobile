@@ -1,9 +1,9 @@
 package com.example.virginmoney.data.repo
 
-import com.example.virginmoney.models.people.PeopleModel
-import com.example.virginmoney.models.room.RoomModel
-import com.example.virginmoney.network.PeopleCall
-import com.example.virginmoney.network.RoomsCall
+import com.example.virginmoney.data.models.people.PeopleModel
+import com.example.virginmoney.data.models.room.RoomModel
+import com.example.virginmoney.data.network.PeopleCall
+import com.example.virginmoney.data.network.RoomsCall
 import javax.inject.Inject
 
 class RepositoryImpl @Inject constructor(
