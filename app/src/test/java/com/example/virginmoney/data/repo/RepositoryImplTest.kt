@@ -1,8 +1,10 @@
 package com.example.virginmoney.data.repo
 
 import com.example.virginmoney.data.models.people.PeopleModel
+import com.example.virginmoney.data.models.room.RoomModel
 import com.example.virginmoney.data.network.PeopleCall
 import com.example.virginmoney.data.network.RoomsCall
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Assert.*
@@ -76,7 +78,33 @@ class RepositoryImplTest {
         assertNull(repo.getPeople())
     }
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    fun getRooms() {
+    fun getRooms() = runTest {
+        Mockito.`when`(roomsCall.getRooms()).thenReturn(
+            arrayListOf(
+                RoomModel(
+                    createdAt = "2022-01-24T20:52:50.765Z",
+                    isOccupied = false,
+                    maxOccupancy = 34072,
+                    id = 2
+                )
+            )
+        )
+        assertEquals(roomsCall.getRooms(), repo.getRooms())
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test
+    fun getRooms_Empty() = runTest {
+        Mockito.`when`(roomsCall.getRooms()).thenReturn(arrayListOf())
+        assertEquals(0, repo.getRooms().size)
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test
+    fun getRooms_Null() = runTest {
+        Mockito.`when`(roomsCall.getRooms()).thenReturn(null)
+        assertNull(repo.getRooms())
     }
 }
