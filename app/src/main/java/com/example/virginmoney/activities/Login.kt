@@ -10,6 +10,8 @@ import android.view.WindowManager
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
+import androidx.core.os.bundleOf
+import com.example.virginmoney.App.Companion.analytics
 import com.example.virginmoney.R
 import com.example.virginmoney.base.BaseActivity
 import com.example.virginmoney.databinding.ActivityLoginBinding
@@ -29,6 +31,7 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
@@ -486,6 +489,12 @@ class Login : BaseActivity() {
     }
 
     private fun goToHomeActivity() {
+        analytics.logEvent(
+            FirebaseAnalytics.Event.LOGIN,
+            bundleOf(
+                FirebaseAnalytics.Param.DESTINATION to Home::class.simpleName
+            )
+        )
         startActivity(Intent(this@Login, Home::class.java))
         this@Login.finish()
     }
