@@ -61,7 +61,7 @@ Virgin Money cannot guarantee that the same developer(s) will always be working 
 
 ## Screen record
 
-![Screen Record](https://imgur.com/a/96B76Vs)
+[Screen Record](https://imgur.com/a/96B76Vs)
 
 ## Notes
 
