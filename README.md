@@ -61,6 +61,8 @@ Virgin Money cannot guarantee that the same developer(s) will always be working 
 
 ## Screen record
 
+![Screen Record](https://github.com/bloworlf/VirginMobile/blob/main/screens/screen%20record.mp4)
+
 ## Notes
 
 * [X] Error handling
