@@ -14,7 +14,7 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.virginmoney.R
-import com.example.virginmoney.fragments.FragmentPeopleDirections
+import com.example.virginmoney.ui.fragments.FragmentPeopleDirections
 import com.example.virginmoney.ui.holders.PeopleHolder
 import com.example.virginmoney.data.models.people.PeopleModel
 import com.example.virginmoney.utils.Utils.colorMap

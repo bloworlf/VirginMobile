@@ -22,13 +22,14 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.example.virginmoney.App
+import com.example.virginmoney.App.Companion.auth
 import com.example.virginmoney.R
 import com.example.virginmoney.ui.base.BaseActivity
 import com.example.virginmoney.databinding.ActivityHomeBinding
 import com.example.virginmoney.utils.DensityUtil
 import com.example.virginmoney.utils.Utils
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.auth.FirebaseAuth
+//import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.AndroidEntryPoint
 import de.hdodenhof.circleimageview.CircleImageView
@@ -53,8 +54,8 @@ class Home : BaseActivity() {
         }
         Utils.setLightStatusBar(this)
 
-        FirebaseAuth.getInstance().currentUser?.let {
-            user = FirebaseAuth.getInstance().currentUser!!
+        auth.currentUser?.let {
+            user = auth.currentUser!!
         }
 
         bind = ActivityHomeBinding.inflate(layoutInflater)

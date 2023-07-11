@@ -4,9 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.view.WindowManager
+import com.example.virginmoney.App.Companion.auth
 import com.example.virginmoney.ui.base.BaseActivity
 import com.example.virginmoney.databinding.ActivitySplashBinding
-import com.google.firebase.auth.FirebaseAuth
+//import com.google.firebase.auth.FirebaseAuth
 
 class Splash : BaseActivity() {
 
@@ -23,7 +24,7 @@ class Splash : BaseActivity() {
         bind = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(bind.root)
 
-        if (FirebaseAuth.getInstance().currentUser == null) {
+        if (auth.currentUser == null) {
 //            Handler().postDelayed({
             startActivity(Intent(this@Splash, Login::class.java))
             this@Splash.finish()

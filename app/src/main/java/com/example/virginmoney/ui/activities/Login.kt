@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.os.bundleOf
 import com.example.virginmoney.App.Companion.analytics
+import com.example.virginmoney.App.Companion.auth
 import com.example.virginmoney.R
 import com.example.virginmoney.ui.base.BaseActivity
 import com.example.virginmoney.databinding.ActivityLoginBinding
@@ -33,7 +34,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.FacebookAuthProvider
-import com.google.firebase.auth.FirebaseAuth
+//import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.UserProfileChangeRequest
 import java.util.regex.Pattern
@@ -46,7 +47,7 @@ class Login : BaseActivity() {
 
     lateinit var bind: ActivityLoginBinding
 
-    private lateinit var auth: FirebaseAuth
+//    private lateinit var auth: FirebaseAuth
 
 //    private lateinit var oneTapClient: SignInClient
 //    private lateinit var signInRequest: BeginSignInRequest
@@ -73,7 +74,7 @@ class Login : BaseActivity() {
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         )
 
-        auth = FirebaseAuth.getInstance()
+//        auth = auth
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
@@ -352,7 +353,7 @@ class Login : BaseActivity() {
                                 toggleSignInSignUp()
                             }
                             .show()
-                        FirebaseAuth.getInstance().signOut()
+                        auth.signOut()
 //                        goToHomeActivity()
                     }
             }
@@ -397,7 +398,7 @@ class Login : BaseActivity() {
                             it.user!!.sendEmailVerification()
                         }
                         .show()
-                    FirebaseAuth.getInstance().signOut()
+                    auth.signOut()
                     return@addOnSuccessListener
                 }
 
@@ -437,16 +438,16 @@ class Login : BaseActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
 
-                    if (FirebaseAuth.getInstance().currentUser!!.isEmailVerified) {
+                    if (auth.currentUser!!.isEmailVerified) {
                         goToHomeActivity()
                     } else {
-                        FirebaseAuth.getInstance().currentUser!!.sendEmailVerification()
+                        auth.currentUser!!.sendEmailVerification()
                         CustomDialog(this@Login, false)
                             .setTitle("Email Verification")
                             .setMessage("You will shortly receive an email to activate your account.")
                             .setPositive("Understood") {}
                             .show()
-                        FirebaseAuth.getInstance().signOut()
+                        auth.signOut()
                     }
                 } else {
                     // If sign in fails, display a message to the user.
